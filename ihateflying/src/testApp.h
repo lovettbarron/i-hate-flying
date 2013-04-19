@@ -25,6 +25,7 @@ class testApp : public ofBaseApp{
     // Model
     Cabin * cabin;
     ofLight light;
+    ofEasyCam cam;
     
 };
 

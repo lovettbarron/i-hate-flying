@@ -13,9 +13,8 @@ Cabin::Cabin() {
     // or
     // http://sketchup.google.com/3dwarehouse/details?mid=7b765f7f83e74a93d4713685ae50fa13&prevstart=0
 
-	model = NULL;
     model = new ofx3DModelLoader();
-    model->loadModel("res/model/cabin.dae");
+    model->loadModel("res/model/cabin/cabin.3ds");
 }
 
 Cabin::~Cabin() {
