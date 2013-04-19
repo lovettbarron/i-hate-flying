@@ -1,0 +1,6 @@
+ofx3DModelLoader
+ofxAccelerometer
+ofxCv
+ofxiPhone
+ofxMeshUtils
+ofxXmlSettings
