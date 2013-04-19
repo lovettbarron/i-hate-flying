@@ -15,18 +15,19 @@
 #include "ofMain.h"
 #include "ofx3DModelLoader.h"
 
-class Cabin : public ofx3DModelLoader {
+class Cabin {
     
 public:
     Cabin();
     ~Cabin();
+    void draw();
 
     
     
 private:
     ofVec3f loc;
     ofVec3f rot;
-
+    ofx3DModelLoader * model;
     
     
 };

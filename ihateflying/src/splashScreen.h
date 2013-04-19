@@ -12,12 +12,12 @@
 #include "ofMain.h"
 
 class SplashScreen {
-    
+public:
     SplashScreen();
     ~SplashScreen();
     
     void draw();
     
     
-}
+};
 #endif /* defined(__ihateflying__splashScreen__) */
