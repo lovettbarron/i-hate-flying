@@ -10,6 +10,7 @@
 		2c68d3a329673d7462b5234cfc3e4207 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50d4cd30ed468c2e07dc9107d733d105 /* ofxXmlSettings.cpp */; };
 		4b46391d6b907e7b99e3263f63eb31fe /* texture3DS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0c87bf7281b8832572c01a7d97bef07e /* texture3DS.cpp */; };
 		8310ad6e522adba976b9f7855b8f6cd2 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8a0b12fac93c7530f66e4631ce2fa1e0 /* tinyxmlparser.cpp */; };
+		838BE8311722578B004DCBB7 /* pulseEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838BE82F1722578B004DCBB7 /* pulseEvent.cpp */; };
 		838D3B391719CADA00BF2A2D /* pulseControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838D3B371719CADA00BF2A2D /* pulseControl.cpp */; };
 		838D3B3C1719CAF700BF2A2D /* cabin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838D3B3A1719CAF700BF2A2D /* cabin.cpp */; };
 		838D3B3F1719CB0000BF2A2D /* event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838D3B3D1719CB0000BF2A2D /* event.cpp */; };
@@ -80,6 +81,8 @@
 		462552ea43ce23f5454b48960f4a2c66 /* ofxAccelerometer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAccelerometer.cpp; path = ../../openFrameworks/addons/ofxAccelerometer/src/ofxAccelerometer.cpp; sourceTree = SOURCE_ROOT; };
 		50d4cd30ed468c2e07dc9107d733d105 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../openFrameworks/addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
 		727e2ff0fca5dacbdb5b35ed663c15c5 /* ofx3DBaseLoader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofx3DBaseLoader.h; path = ../../openFrameworks/addons/ofx3DModelLoader/src/ofx3DBaseLoader.h; sourceTree = SOURCE_ROOT; };
+		838BE82F1722578B004DCBB7 /* pulseEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pulseEvent.cpp; sourceTree = "<group>"; };
+		838BE8301722578B004DCBB7 /* pulseEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pulseEvent.h; sourceTree = "<group>"; };
 		838D3B371719CADA00BF2A2D /* pulseControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pulseControl.cpp; sourceTree = "<group>"; };
 		838D3B381719CADA00BF2A2D /* pulseControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pulseControl.h; sourceTree = "<group>"; };
 		838D3B3A1719CAF700BF2A2D /* cabin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cabin.cpp; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 				838D3B3E1719CB0000BF2A2D /* event.h */,
 				838EF97C1720F21600349EDB /* splashScreen.cpp */,
 				838EF97D1720F21600349EDB /* splashScreen.h */,
+				838BE82F1722578B004DCBB7 /* pulseEvent.cpp */,
+				838BE8301722578B004DCBB7 /* pulseEvent.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -444,6 +449,7 @@
 				838D3B3C1719CAF700BF2A2D /* cabin.cpp in Sources */,
 				838D3B3F1719CB0000BF2A2D /* event.cpp in Sources */,
 				838EF97E1720F21600349EDB /* splashScreen.cpp in Sources */,
+				838BE8311722578B004DCBB7 /* pulseEvent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

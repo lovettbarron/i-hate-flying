@@ -12,26 +12,38 @@
 #include "ofMain.h"
 #include "ofEvents.h"
 #include "ofSerial.h"
+#include "pulseEvent.h"
 
-class PulseControl : public ofSerial {
+class PulseControl {
     
 public:
     PulseControl();
     ~PulseControl();
     
+    void update();
+    
     int getCurrentBPM();
     int getAverageBPM();
+    
+    int getCurrentIBI();
+    int getAverageIBI();
 
     void drawHeartRate(int x, int y);
     void drawBPM(int x, int y);
-
+    void drawIBI(int x, int y);
+    
+    void sensorDelegate(PulseEvent &e);
+    
 private:
     vector<int> heartrate;
-    int current;
+    vector<int> bpm;
+    vector<int> ibi;
+    int currentBPM;
+    int currentIBI;
     
-    ofSerial Serial;
-    
-
+    ofSerial serial;
+    string buffer;
+    bool stringComplete = false;
     
 };
 

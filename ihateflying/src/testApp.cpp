@@ -11,11 +11,14 @@ GLfloat lightTwoColor[] = {0.99, 0.99, 0.99, 1.0};
 //--------------------------------------------------------------
 void testApp::setup(){
     cabin = new Cabin();
-        
+    pulse = new PulseControl();
+    
 	ofSetVerticalSync(true);
 	ofEnableSmoothing();
     
     cam.getMouseInputEnabled();
+    cam.setDistance(1);
+    cam.setTarget(ofVec3f(5,5,5));
     
     //some model / light stuff
     glEnable (GL_DEPTH_TEST);

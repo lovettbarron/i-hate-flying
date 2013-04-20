@@ -24,6 +24,7 @@ class testApp : public ofBaseApp{
     
     // Model
     Cabin * cabin;
+    PulseControl * pulse;
     ofLight light;
     ofEasyCam cam;
     

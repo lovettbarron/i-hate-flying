@@ -29,7 +29,10 @@ private:
     ofVec3f rot;
     ofx3DModelLoader * model;
     
-    
+    int ROWS = 20;
+    int SEATS = 6;
+    int rowDist = 2;
+    int seatSep = 1;
 };
 
 /*
