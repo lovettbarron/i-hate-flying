@@ -18,12 +18,26 @@ Cabin::Cabin() {
 }
 
 Cabin::~Cabin() {
-    
+    toon.load("shaders/noise.vert", "shaders/noise.frag");
 }
 
 void Cabin::draw() {
     //model->draw();
     
+    toon.begin();
+    
+    toon.setUniform3f("uBaseColor", 1.0f, 1.0f, 1.0f );
+    toon.setUniform3f("uDirLightPos", 20, 0, 0 );
+//    toon.setUniform3f("uDirLightPos", 20, 0, 0 );
+//    toon.setUniform3f("uDirLightPos", 20, 0, 0 );
+//    toon.setUniform3f("uDirLightPos", 20, 0, 0 );
+//
+//    uniform vec3 uBaseColor;
+//    uniform vec3 uDirLightPos;
+//    uniform vec3 uDirLightColor;
+//    uniform vec3 uAmbientLightColor;
+//    varying vec3 vNormal;
+//    varying vec3 vRefract;
     
     for(int i=0;i<ROWS;i++) {
         ofPushMatrix();
@@ -38,4 +52,6 @@ void Cabin::draw() {
         }
         ofPopMatrix();
     }
+    
+    toon.end();
 }

@@ -18,6 +18,7 @@ void testApp::setup(){
     
     cam.getMouseInputEnabled();
     cam.setDistance(1);
+    cam.setPosition(0, 0, .7);
     cam.setTarget(ofVec3f(5,5,5));
     
     //some model / light stuff
@@ -43,7 +44,7 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-
+    pulse->update();
 }
 
 //--------------------------------------------------------------
@@ -53,7 +54,7 @@ void testApp::draw(){
     cam.begin();
 	ofPushStyle();
 	light.enable();
-	light.setPosition(2000,0,0);
+	light.setPosition(20,0,0);
     ofSetColor(0, 0, 0, 255);
     cabin->draw();
     

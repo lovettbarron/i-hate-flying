@@ -29,6 +29,9 @@ private:
     ofVec3f rot;
     ofx3DModelLoader * model;
     
+    ofFbo window;
+    ofShader toon;
+    
     int ROWS = 20;
     int SEATS = 6;
     int rowDist = 2;

@@ -21,7 +21,19 @@ PulseControl::~PulseControl() {
 
 void PulseControl::update() {
     if(serial.available() > 0) {
+        buffer += serial.readByte();
+        //ofLog() << buffer;
         
+        
+        if(buffer.at(buffer.length() - 1) == '\r') {
+            ofLog() << buffer;
+            //        static PulseEvent event;
+            //        if(buffer
+            //        event.type    = 2;
+            //        event.payload = 0;
+            //        ofNotifyEvent(PulseEvent::events, event);
+            buffer = "";
+        }
     }
     
 }
