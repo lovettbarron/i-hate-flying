@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxAutoControlPanel.h"
 #include "ofxGameCamera.h"
+#include "ofxTimeline.h"
 #include "pulseControl.h"
 #include "cabin.h"
 
@@ -13,6 +14,7 @@ class testApp : public ofBaseApp{
 	public:
 		void setup();
         void setupPanel();
+        void setupTimeline();
 		void update();
 		void draw();
 
@@ -33,6 +35,7 @@ class testApp : public ofBaseApp{
     ofLight light;
     ofxGameCamera cam;
     ofxAutoControlPanel panel;
+    ofxTimeline timeline;
     
 private:
     int panelWidth;

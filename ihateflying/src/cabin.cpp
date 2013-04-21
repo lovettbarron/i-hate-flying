@@ -15,13 +15,18 @@ Cabin::Cabin() {
 
  //   model = new ofx3DModelLoader();
    // model->loadModel("res/model/cabin/cabin.3ds");
+    toon.load("shader/toon.vert", "shader/toon.frag");
+    windows->allocate(500,500);
+    windows->begin();
+    ofBackground(200);
+    windows->end();
 }
 
 Cabin::~Cabin() {
-    toon.load("shader/toon.vert", "shader/toon.frag");
 }
 
 void Cabin::draw() {
+    
     //model->draw();
     toon.begin();
     
@@ -39,26 +44,38 @@ void Cabin::draw() {
 //    varying vec3 vNormal;
 //    varying vec3 vRefract;
     ofPushMatrix();
-    ofSetColor(245);
+    ofSetColor(200);
     ofScale(5,5,5);
     for(int i=0;i<ROWS;i++) {
         ofPushMatrix();
         ofTranslate(i*rowDist,0,0);
-
-        // Making the windows
-        ofPushMatrix();
-        ofTranslate(0,-20,0);
-        
-        
-        
-        ofPopMatrix();
-        
+        if(windows->isAllocated()) {
+            // Making the windows
+            // First window
+            ofPushMatrix();
+            ofTranslate(0,-20,0);
+            ofRotateX(0);
+            ofRotateY(90);
+            ofRotateZ(90);
+            windows->draw(0, 0, 2, 2);
+            ofPopMatrix();
+            
+            //Second window
+            ofPushMatrix();
+            ofTranslate(0, 20,0);
+            ofRotateX(0);
+            ofRotateY(90);
+            ofRotateZ(-90);
+            windows->draw(0, 0, 2, 2);
+            ofPopMatrix();
+            
+        }
         // Making the seats
         for(int j=0;j<SEATS;j++) {
             ofPushMatrix();
             if(j%2) ofTranslate(0,5,0);
-            ofTranslate(0,j*seatSep,0);
-            ofScale(.5,1,1);
+            ofTranslate(j*seatSep, 0,0);
+            ofScale(1,2,2);
             ofBox(1);
             ofPopMatrix();
         }
@@ -69,10 +86,12 @@ void Cabin::draw() {
 }
 
 void Cabin::update() {
-    
+    cloudUpdate();
     
 }
 
 void Cabin::cloudUpdate() {
-    
+    windows->begin();
+    ofBackground(240);
+    windows->end();
 }

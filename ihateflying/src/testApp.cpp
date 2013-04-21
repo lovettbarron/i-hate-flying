@@ -44,7 +44,12 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
     pulse->update();
-//    cam.lookAt(ofVec3f( (ofGetMouseX()/ ofGetWidth()), (ofGetMouseY() / ofGetHeight()),0));
+    if(panel.getValueB("playTimeline")){
+        timeline.togglePlay();
+    }
+    if(panel.getValueB("showTimeline")){
+        timeline.toggleShow();
+    }
 }
 
 //--------------------------------------------------------------
@@ -118,11 +123,24 @@ void testApp::setupPanel() {
     panel.setup(panelWidth, ofGetHeight());
     
     panel.addPanel("Cabin");
+    panel.addToggle("showTimeline",false);
+    panel.addToggle("playTimeline",false);
+    
     panel.addLabel("Lights");
     panel.addSlider("bgColor",255,0,255,true);
     
     panel.addLabel("Windows");
+    panel.addSlider("windowDistance", 2, 0,10,false);
     
     panel.addLabel("Seats");
     //angle = panel.getValueI("angle");
+}
+
+void testApp::setupTimeline() {
+    
+    timeline.setup();
+    timeline.setDurationInSeconds(60);
+    timeline.setLoopType(OF_LOOP_NORMAL);
+    
+  //  timeline.addKeyframes("MyCircleRadius", ofRange(0, 200));
 }
