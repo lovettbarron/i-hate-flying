@@ -21,7 +21,7 @@ Cabin::Cabin() {
     seatbeltOff.loadImage("image/seatbelt_off.png");
     seatbelt = &seatbeltOn;
     
-    windows.allocate(500,500);
+    windows.allocate(500,500,GL_RGBA);
     windowMask.loadImage("image/windowmask.png");
     cloudImg.loadImage("image/cloud.png");
     for(int i=0;i<NUMCLOUDS;i++) {
@@ -57,7 +57,8 @@ void Cabin::draw() {
 //    varying vec3 vNormal;
 //    varying vec3 vRefract;
     ofPushMatrix();
-    ofSetColor(200);
+    ofEnableAlphaBlending();
+    ofSetColor(255);
     ofScale(5,5,5);
     ofRotateY(90);
     for(int i=0;i<ROWS;i++) {
@@ -69,8 +70,8 @@ void Cabin::draw() {
             ofPushMatrix();
             ofTranslate(0,-4,2);
             ofRotateX(90);
-            ofRotateY(0);
-            ofRotateZ(90);
+            ofRotateY(-180);
+            ofRotateZ(0);
             windows.draw(0, 0, 2, 2);
             ofPopMatrix();
             
@@ -79,11 +80,12 @@ void Cabin::draw() {
             ofTranslate(0, seatSep*4*SEATS + (SEATS * 2 * .6),2);
             ofRotateX(90);
             ofRotateY(0);
-            ofRotateZ(-90);
+            ofRotateZ(0);
             windows.draw(0, 0, 2, 2);
             ofPopMatrix();
             
         }
+        ofSetColor(200);
         // Making the seats
         for(int j=0;j<SEATS;j++) {
             ofPushMatrix();
@@ -125,14 +127,17 @@ void Cabin::setSeatbelt(bool state) {
 
 void Cabin::cloudUpdate() {
     windows.begin();
-    ofBackground(200);
-    ofSetColor(255);
+    ofBackground(200,200,255);
+    ofSetColor(255,50);
     for(int i=0;i<clouds.size();i++) {
-        clouds[i]->set(clouds[i]->x+cloudSpeed, clouds[i]->y);
+        clouds[i]->set(clouds[i]->x+cloudSpeed, clouds[i]->y,clouds[i]->z);
         if(clouds[i]->x > windows.getWidth() + 5)
-            clouds[i]->set(ofVec3f(0,ofRandom(windows.getHeight())));
-        cloudImg.draw(clouds[i]->x, clouds[i]->y,clouds[i]->z,clouds[i]->z);
+            clouds[i]->set(0,ofRandom(windows.getHeight()),clouds[i]->z);
+       // cloudImg.draw(clouds[i]->x, clouds[i]->y,clouds[i]->z,clouds[i]->z);
+        ofCircle(clouds[i]->x, clouds[i]->y,0,clouds[i]->z);
     }
-    windowMask.draw(0,0,windows.getWidth(),windows.getHeight());
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA);
+    ofSetColor(255,255);
+    windowMask.draw(0,0,1,windows.getWidth(),windows.getHeight());
     windows.end();
 }
