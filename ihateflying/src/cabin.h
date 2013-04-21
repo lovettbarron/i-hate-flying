@@ -21,7 +21,8 @@ public:
     Cabin();
     ~Cabin();
     void draw();
-
+    void update();
+    void cloudUpdate();
     
     
 private:
@@ -31,6 +32,9 @@ private:
     
     ofFbo window;
     ofShader toon;
+    
+    ofImage windowMask;
+    ofImage wingMask;
     
     int ROWS = 20;
     int SEATS = 6;

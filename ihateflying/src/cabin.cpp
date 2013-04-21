@@ -18,19 +18,19 @@ Cabin::Cabin() {
 }
 
 Cabin::~Cabin() {
-    toon.load("shaders/noise.vert", "shaders/noise.frag");
+    toon.load("shader/toon.vert", "shader/toon.frag");
 }
 
 void Cabin::draw() {
     //model->draw();
-    
     toon.begin();
     
-    toon.setUniform3f("uBaseColor", 1.0f, 1.0f, 1.0f );
-    toon.setUniform3f("uDirLightPos", 20, 0, 0 );
-//    toon.setUniform3f("uDirLightPos", 20, 0, 0 );
-//    toon.setUniform3f("uDirLightPos", 20, 0, 0 );
-//    toon.setUniform3f("uDirLightPos", 20, 0, 0 );
+    toon.setUniform3f("uBaseColor", 1.0f, 0.0f, 0.0f );
+    toon.setUniform3f("uDirLightPos", 0, 0, 0 );
+    toon.setUniform3f("uDirLightColor", 20, 0, 0 );
+    toon.setUniform3f("uAmbientLightColor", .7, .7, .7 );
+//    toon.setAttribute3f("vNormal", 20, 0, 0 );
+//    toon.setAttribute3f("vRefract", 20, 0, 0 );
 //
 //    uniform vec3 uBaseColor;
 //    uniform vec3 uDirLightPos;
@@ -38,10 +38,22 @@ void Cabin::draw() {
 //    uniform vec3 uAmbientLightColor;
 //    varying vec3 vNormal;
 //    varying vec3 vRefract;
-    
+    ofPushMatrix();
+    ofSetColor(245);
+    ofScale(5,5,5);
     for(int i=0;i<ROWS;i++) {
         ofPushMatrix();
         ofTranslate(i*rowDist,0,0);
+
+        // Making the windows
+        ofPushMatrix();
+        ofTranslate(0,-20,0);
+        
+        
+        
+        ofPopMatrix();
+        
+        // Making the seats
         for(int j=0;j<SEATS;j++) {
             ofPushMatrix();
             if(j%2) ofTranslate(0,5,0);
@@ -52,6 +64,15 @@ void Cabin::draw() {
         }
         ofPopMatrix();
     }
-    
+    ofPopMatrix();
     toon.end();
+}
+
+void Cabin::update() {
+    
+    
+}
+
+void Cabin::cloudUpdate() {
+    
 }

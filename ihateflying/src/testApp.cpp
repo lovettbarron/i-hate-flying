@@ -12,15 +12,14 @@ GLfloat lightTwoColor[] = {0.99, 0.99, 0.99, 1.0};
 void testApp::setup(){
     cabin = new Cabin();
     pulse = new PulseControl();
+
+    setupPanel();
     
 	ofSetVerticalSync(true);
 	ofEnableSmoothing();
-    
-    cam.getMouseInputEnabled();
-    cam.setDistance(1);
-    cam.setPosition(0, 0, .7);
-    cam.setTarget(ofVec3f(5,5,5));
-    
+	ofEnableLighting();
+    cam.setup();
+
     //some model / light stuff
     glEnable (GL_DEPTH_TEST);
     glShadeModel (GL_SMOOTH);
@@ -45,6 +44,7 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
     pulse->update();
+//    cam.lookAt(ofVec3f( (ofGetMouseX()/ ofGetWidth()), (ofGetMouseY() / ofGetHeight()),0));
 }
 
 //--------------------------------------------------------------
@@ -54,7 +54,7 @@ void testApp::draw(){
     cam.begin();
 	ofPushStyle();
 	light.enable();
-	light.setPosition(20,0,0);
+	light.setPosition(21,10,20);
     ofSetColor(0, 0, 0, 255);
     cabin->draw();
     
@@ -111,4 +111,18 @@ void testApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+void testApp::setupPanel() {
+    panelWidth = 300;
+    panel.setup(panelWidth, ofGetHeight());
+    
+    panel.addPanel("Cabin");
+    panel.addLabel("Lights");
+    panel.addSlider("bgColor",255,0,255,true);
+    
+    panel.addLabel("Windows");
+    
+    panel.addLabel("Seats");
+    //angle = panel.getValueI("angle");
 }

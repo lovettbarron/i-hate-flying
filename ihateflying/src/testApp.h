@@ -1,13 +1,18 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxAutoControlPanel.h"
+#include "ofxGameCamera.h"
 #include "pulseControl.h"
 #include "cabin.h"
+
+#define SETPANEL 1
 
 class testApp : public ofBaseApp{
 
 	public:
 		void setup();
+        void setupPanel();
 		void update();
 		void draw();
 
@@ -26,8 +31,11 @@ class testApp : public ofBaseApp{
     Cabin * cabin;
     PulseControl * pulse;
     ofLight light;
-    ofEasyCam cam;
+    ofxGameCamera cam;
+    ofxAutoControlPanel panel;
     
+private:
+    int panelWidth;
 };
 
 class setupScreen {
