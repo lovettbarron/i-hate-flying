@@ -19,6 +19,7 @@ void testApp::setup(){
 	ofEnableSmoothing();
 	ofEnableLighting();
     cam.setup();
+    cam.loadCameraPosition();
 
     //some model / light stuff
     glEnable (GL_DEPTH_TEST);
@@ -44,12 +45,14 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
     pulse->update();
-    if(panel.getValueB("playTimeline")){
+    cabin->update();
+    if(panel.getValueB("playTimeline"))
         timeline.togglePlay();
-    }
-    if(panel.getValueB("showTimeline")){
+    
+    if(panel.getValueB("showTimeline"))
         timeline.toggleShow();
-    }
+    
+    cabin->setSeatbelt(panel.getValueB("seatbelts"));
 }
 
 //--------------------------------------------------------------
@@ -75,7 +78,16 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+    switch(key) {
+        case '[':
+            cam.saveCameraPosition();
+            break;
+        case ']':
+            cam.loadCameraPosition();
+            break;
+        default:
+            break;
+    }
 }
 
 //--------------------------------------------------------------
@@ -125,6 +137,7 @@ void testApp::setupPanel() {
     panel.addPanel("Cabin");
     panel.addToggle("showTimeline",false);
     panel.addToggle("playTimeline",false);
+    panel.addToggle("seatbelts",false);
     
     panel.addLabel("Lights");
     panel.addSlider("bgColor",255,0,255,true);

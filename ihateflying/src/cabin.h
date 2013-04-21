@@ -15,8 +15,6 @@
 #include "ofMain.h"
 #include "ofx3DModelLoader.h"
 
-
-
 struct pingPongBuffer {
 public:
     void allocate( int _width, int _height, int _internalformat = GL_RGBA, float _dissipation = 1.0f){
@@ -71,10 +69,10 @@ public:
     void draw();
     void update();
     void cloudUpdate();
+    void setSeatbelt(bool state);
     
-    
-    ofFbo * windows;
-    
+    ofFbo windows;
+    vector<ofVec3f*> clouds;
 private:
     ofVec3f loc;
     ofVec3f rot;
@@ -87,10 +85,20 @@ private:
     ofImage windowMask;
     ofImage wingMask;
     
+    ofImage cloudImg;
+    int maxCloudScale = 100;
+    
+    ofImage seatbeltOn;
+    ofImage seatbeltOff;
+    ofImage * seatbelt;
+    
+    int NUMCLOUDS = 100;
+    float cloudSpeed = 1.4;
+    
     int ROWS = 20;
     int SEATS = 6;
-    int rowDist = 2;
-    int seatSep = 1;
+    int rowDist = 4;
+    float seatSep = 1.1;
 };
 
 /*
