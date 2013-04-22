@@ -9,20 +9,23 @@
 #ifndef __ihateflying__event__
 #define __ihateflying__event__
 
-#include <iostream>
-#include "testApp.h"
+#include "ofMain.h"
+#include "ofEvents.h"
+#include "audioControl.h"
 
-#endif /* defined(__ihateflying__event__) */
-
-
-class Event: public ofEventArgs  {
+class GameEvent: public ofEventArgs  {
     
 public:
-    Event();
-    ~Event();
+    GameEvent() {
+        type: NULL;
+        amplitude: NULL;
+    };
+    ~GameEvent();
     
-    void update();
-    void draw();
+    AudioType type;
+    float amplitude;
+    static ofEvent <GameEvent> events;
     
 private:
 };
+#endif /* defined(__ihateflying__event__) */

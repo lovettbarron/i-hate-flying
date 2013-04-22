@@ -10,6 +10,7 @@
 		2c68d3a329673d7462b5234cfc3e4207 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50d4cd30ed468c2e07dc9107d733d105 /* ofxXmlSettings.cpp */; };
 		4b46391d6b907e7b99e3263f63eb31fe /* texture3DS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0c87bf7281b8832572c01a7d97bef07e /* texture3DS.cpp */; };
 		8310ad6e522adba976b9f7855b8f6cd2 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8a0b12fac93c7530f66e4631ce2fa1e0 /* tinyxmlparser.cpp */; };
+		8385B0E217247C5500E67659 /* audioControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8385B0E017247C5500E67659 /* audioControl.cpp */; };
 		838BE8311722578B004DCBB7 /* pulseEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838BE82F1722578B004DCBB7 /* pulseEvent.cpp */; };
 		838BE87617234BE7004DCBB7 /* guiBaseObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838BE83B17234BE7004DCBB7 /* guiBaseObject.cpp */; };
 		838BE87717234BE7004DCBB7 /* guiCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 838BE83D17234BE7004DCBB7 /* guiCallback.cpp */; };
@@ -162,6 +163,8 @@
 		462552ea43ce23f5454b48960f4a2c66 /* ofxAccelerometer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAccelerometer.cpp; path = ../../openFrameworks/addons/ofxAccelerometer/src/ofxAccelerometer.cpp; sourceTree = SOURCE_ROOT; };
 		50d4cd30ed468c2e07dc9107d733d105 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../openFrameworks/addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
 		727e2ff0fca5dacbdb5b35ed663c15c5 /* ofx3DBaseLoader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofx3DBaseLoader.h; path = ../../openFrameworks/addons/ofx3DModelLoader/src/ofx3DBaseLoader.h; sourceTree = SOURCE_ROOT; };
+		8385B0E017247C5500E67659 /* audioControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audioControl.cpp; sourceTree = "<group>"; };
+		8385B0E117247C5500E67659 /* audioControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audioControl.h; sourceTree = "<group>"; };
 		838BE82F1722578B004DCBB7 /* pulseEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pulseEvent.cpp; sourceTree = "<group>"; };
 		838BE8301722578B004DCBB7 /* pulseEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pulseEvent.h; sourceTree = "<group>"; };
 		838BE83B17234BE7004DCBB7 /* guiBaseObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guiBaseObject.cpp; sourceTree = "<group>"; };
@@ -1017,6 +1020,8 @@
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				838D3B371719CADA00BF2A2D /* pulseControl.cpp */,
 				838D3B381719CADA00BF2A2D /* pulseControl.h */,
+				8385B0E017247C5500E67659 /* audioControl.cpp */,
+				8385B0E117247C5500E67659 /* audioControl.h */,
 				838D3B3A1719CAF700BF2A2D /* cabin.cpp */,
 				838D3B3B1719CAF700BF2A2D /* cabin.h */,
 				838D3B3D1719CB0000BF2A2D /* event.cpp */,
@@ -1254,6 +1259,7 @@
 				838BED8B1723A232004DCBB7 /* ofxEasingQuint.cpp in Sources */,
 				838BED8C1723A232004DCBB7 /* ofxEasingSine.cpp in Sources */,
 				838BED8D1723A232004DCBB7 /* ofxTween.cpp in Sources */,
+				8385B0E217247C5500E67659 /* audioControl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

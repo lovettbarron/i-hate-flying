@@ -5,7 +5,9 @@
 #include "ofxGameCamera.h"
 #include "ofxTimeline.h"
 #include "pulseControl.h"
+#include "audioControl.h"
 #include "cabin.h"
+#include "event.h"
 
 #define SETPANEL 1
 
@@ -17,6 +19,8 @@ class testApp : public ofBaseApp{
         void setupTimeline();
 		void update();
 		void draw();
+    
+        void eventControl(GameEvent &e);
 
 		void keyPressed  (int key);
 		void keyReleased(int key);
@@ -32,6 +36,7 @@ class testApp : public ofBaseApp{
     // Model
     Cabin * cabin;
     PulseControl * pulse;
+    AudioControl * audio;
     ofLight light;
     ofxGameCamera cam;
     ofxAutoControlPanel panel;

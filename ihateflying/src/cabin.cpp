@@ -8,13 +8,10 @@
 
 #include "cabin.h"
 
-Cabin::Cabin() {
-    // http://sketchup.google.com/3dwarehouse/details?mid=30e8973a2c1b03d6dcef01d31e275203
-    // or
-    // http://sketchup.google.com/3dwarehouse/details?mid=7b765f7f83e74a93d4713685ae50fa13&prevstart=0
-
- //   model = new ofx3DModelLoader();
-   // model->loadModel("res/model/cabin/cabin.3ds");
+Cabin::Cabin(AudioControl &_audio) {
+    
+    audio = &_audio;
+    
     toon.load("shader/toon.vert", "shader/toon.frag");
     
     seatbeltOn.loadImage("image/seatbelt_on.png");
@@ -36,6 +33,10 @@ Cabin::Cabin() {
 }
 
 Cabin::~Cabin() {
+}
+
+void Cabin::setupSound() {
+    
 }
 
 void Cabin::draw() {
@@ -123,6 +124,7 @@ void Cabin::setSeatbelt(bool state) {
         seatbelt = &seatbeltOn;
     else
         seatbelt = &seatbeltOff;
+    audio->trigger(ANNOUNCE);
 }
 
 void Cabin::cloudUpdate() {
@@ -140,4 +142,40 @@ void Cabin::cloudUpdate() {
     ofSetColor(255,255);
     windowMask.draw(0,0,1,windows.getWidth(),windows.getHeight());
     windows.end();
+}
+
+
+
+/////
+
+void Cabin::turbulence() {
+    
+}
+
+void Cabin::cabinCrew() {
+    
+}
+
+void Cabin::garbledAnnouncement() {
+    
+}
+
+void Cabin::inappropriateComment() {
+    
+}
+
+void Cabin::landingGear() {
+    
+}
+
+void Cabin::fallingTraytable() {
+    
+}
+
+void Cabin::weirdSmell() {
+    
+}
+
+void Cabin::babyCrying() {
+    
 }

@@ -14,6 +14,7 @@
 
 #include "ofMain.h"
 #include "ofx3DModelLoader.h"
+#include "audioControl.h"
 
 struct pingPongBuffer {
 public:
@@ -64,14 +65,26 @@ private:
 class Cabin {
     
 public:
-    Cabin();
+    Cabin(AudioControl &_audio);
     ~Cabin();
+    void setupSound();
     void draw();
     void update();
     void cloudUpdate();
     void setSeatbelt(bool state);
     
+    // Emotion events
+    void turbulence();
+    void cabinCrew();
+    void garbledAnnouncement();
+    void inappropriateComment();
+    void landingGear();
+    void fallingTraytable();
+    void weirdSmell();
+    void babyCrying();
+    
     ofFbo windows;
+    AudioControl * audio;
     vector<ofVec3f*> clouds;
 private:
     ofVec3f loc;

@@ -7,3 +7,4 @@
 //
 
 #include "event.h"
+ofEvent <GameEvent> GameEvent::events;

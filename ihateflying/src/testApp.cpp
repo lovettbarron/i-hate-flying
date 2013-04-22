@@ -10,7 +10,8 @@ GLfloat lightTwoColor[] = {0.99, 0.99, 0.99, 1.0};
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    cabin = new Cabin();
+    audio = new AudioControl();
+    cabin = new Cabin(*audio);
     pulse = new PulseControl();
 
     setupPanel();
@@ -40,19 +41,24 @@ void testApp::setup(){
 
     light.setAmbientColor(ofColor(255, 255, 255));
     light.setSpecularColor(ofColor(255,255,255));
+    
+    ofAddListener(GameEvent::events, this, &testApp::eventControl);
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     pulse->update();
     cabin->update();
+    audio->update();
+    
     if(panel.getValueB("playTimeline"))
         timeline.togglePlay();
     
     if(panel.getValueB("showTimeline"))
         timeline.toggleShow();
     
-    cabin->setSeatbelt(panel.getValueB("seatbelts"));
+    if(panel.hasValueChanged("seatbelts"))
+        cabin->setSeatbelt(panel.getValueB("seatbelts"));
 }
 
 //--------------------------------------------------------------
@@ -91,45 +97,6 @@ void testApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void testApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void testApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void testApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
-
-}
-
 void testApp::setupPanel() {
     panelWidth = 300;
     panel.setup(panelWidth, ofGetHeight());
@@ -147,8 +114,13 @@ void testApp::setupPanel() {
     
     panel.addLabel("Seats");
     //angle = panel.getValueI("angle");
+    
+    panel.setupEvents();
+    
+  //  ofAddListener(panel.guiCallbackData, this,&testApp::eventDelegate());
 }
 
+//--------------------------------------------------------------
 void testApp::setupTimeline() {
     
     timeline.setup();
@@ -156,4 +128,9 @@ void testApp::setupTimeline() {
     timeline.setLoopType(OF_LOOP_NORMAL);
     
   //  timeline.addKeyframes("MyCircleRadius", ofRange(0, 200));
+}
+
+//--------------------------------------------------------------
+void testApp::eventControl(GameEvent &e) {
+    
 }
