@@ -8,6 +8,7 @@
 #include "audioControl.h"
 #include "cabin.h"
 #include "event.h"
+#include "splashScreen.h"
 
 #define SETPANEL 1
 
@@ -27,16 +28,18 @@ class testApp : public ofBaseApp{
     
     // Bools
     bool tlToggle;
-    
+    int timelineSelect;
     
     // Model
     Cabin * cabin;
     PulseControl * pulse;
     AudioControl * audio;
+    SplashScreen * splash;
     ofLight light;
     ofxGameCamera cam;
     ofxAutoControlPanel panel;
     ofxTimeline timeline;
+    ofxTimeline splashTimeline;
     vector<ofxTimeline*> sublines;
     
 private:

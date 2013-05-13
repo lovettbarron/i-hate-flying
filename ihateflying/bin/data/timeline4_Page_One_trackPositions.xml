@@ -1,4 +1,10 @@
 <positions>
+    <element name="Sub Timeline 2">
+        <x>0.000000000</x>
+        <y>52.000000000</y>
+        <width>614.400024414</width>
+        <height>40.000000000</height>
+    </element>
     <element name="Sub Timeline 3">
         <x>0.000000000</x>
         <y>733.000000000</y>

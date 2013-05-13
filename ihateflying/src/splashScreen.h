@@ -10,6 +10,7 @@
 #define __ihateflying__splashScreen__
 
 #include "ofMain.h"
+#include "ofxTimeline.h"
 
 class SplashScreen {
 public:
@@ -17,7 +18,17 @@ public:
     ~SplashScreen();
     
     void draw();
+    void next();
+    void startGame();
     
+    ofImage laGameSpace;
+    ofImage relayStudio;
+    ofImage ihateflying;
+    
+    ofImage * current;
+    
+    int incr;
+    bool started;
     
 };
 #endif /* defined(__ihateflying__splashScreen__) */

@@ -9,7 +9,13 @@
 #include "splashScreen.h"
 
 SplashScreen::SplashScreen() {
+    incr = 0;
+    started = false;
     
+    laGameSpace.loadImage("image/splash.png");
+    relayStudio.loadImage("image/relay.png");
+    ihateflying.loadImage("image/cloud.png");
+    next();
 }
 
 SplashScreen::~SplashScreen() {
@@ -17,9 +23,32 @@ SplashScreen::~SplashScreen() {
 }
 
 void SplashScreen::draw() {
-    ofPushStyle();
-	glDepthFunc(GL_ALWAYS); // draw on top of everything
+    if(!started) {
+        ofPushStyle();
+        glDepthFunc(GL_ALWAYS); // draw on top of everything
+        current->draw(0,0,ofGetWidth(),ofGetHeight());
+        
+        ofPopStyle();
+    }
+}
 
-    
-    ofPopStyle();
+void SplashScreen::startGame() {
+    started = true;
+}
+
+void SplashScreen::next() {
+    switch(incr) {
+        case 0:
+            current = &relayStudio;
+            break;
+        case 1:
+            current = &laGameSpace;
+            break;
+        case 2:
+            current = &ihateflying;
+            break;
+        default:
+            break;
+    }
+    incr++;
 }

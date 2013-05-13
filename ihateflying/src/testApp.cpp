@@ -15,6 +15,7 @@ void testApp::setup(){
     audio = new AudioControl();
     cabin = new Cabin(*audio);
     pulse = new PulseControl();
+    splash = new SplashScreen();
     
     eventIncrement = 0;
     
@@ -82,6 +83,7 @@ void testApp::draw(){
     ofSetColor(255);
     cam.end();
     ofPopMatrix();
+    splash->draw();
     if(tlToggle)
         drawTimeline();
 }
@@ -89,14 +91,23 @@ void testApp::draw(){
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
     switch(key) {
-        case '[':
-            cam.saveCameraPosition();
-            break;
-        case ']':
-            cam.loadCameraPosition();
-            break;
+//        case '[':
+//            cam.saveCameraPosition();
+//            break;
+//        case ']':
+//            cam.loadCameraPosition();
+//            break;
         case 't':
             tlToggle = !tlToggle;
+            break;
+        case '1':
+            timelineSelect = 0;
+            break;
+        case '2':
+            timelineSelect = 1;
+            break;
+        case '3':
+            timelineSelect = 2;
         default:
             break;
     }
@@ -130,11 +141,20 @@ void testApp::setupPanel() {
 void testApp::setupTimeline() {
     tlToggle = false;
     timeline.setup();
+    timeline.setName("main");
     timeline.setDurationInSeconds(60);
-    timeline.setLoopType(OF_LOOP_NORMAL);
+    timeline.setLoopType(OF_LOOP_NONE);
     timeline.addBangs("event");
     timeline.addCurves("landing");
     timeline.addCurves("stress");
+
+    splashTimeline.setup();
+    splashTimeline.setName("intro");
+    splashTimeline.setDurationInSeconds(10);
+    splashTimeline.setLoopType(OF_LOOP_NONE);
+    splashTimeline.addBangs("next");
+    splashTimeline.addCurves("fade1");
+    splashTimeline.addCurves("fade2");
     
     for(int i = 0; i < 3; i++){
         ofxTimeline* t = new ofxTimeline();
@@ -147,40 +167,65 @@ void testApp::setupTimeline() {
         sublines.push_back(t);
     }
     
+    
+    
     ofAddListener(timeline.events().bangFired, this, &testApp::eventControl);
   //  timeline.addKeyframes("MyCircleRadius", ofRange(0, 200));
+    
+    
+    splashTimeline.play();
+    
 }
 
 void testApp::drawTimeline() {
-
-    timeline.draw();
+    switch(timelineSelect){
+        case 0:
+            timeline.draw();
+            break;
+        case 1:
+            splashTimeline.draw();
+            break;
+        case 2:
+            sublines[0]->setOffset(timeline.getBottomLeft() + ofVec2f(0,20));
     
-    sublines[0]->setOffset(timeline.getBottomLeft());
-    
-    for(int i = 0; i < sublines.size(); i++){
-        if(i != 0){
-            sublines[i]->setOffset(sublines[i-1]->getBottomLeft() + ofVec2f(0, 20));
-        }
-        sublines[i]->draw();
+            for(int i = 0; i < sublines.size(); i++){
+                if(i != 0){
+                    sublines[i]->setOffset(sublines[i-1]->getBottomLeft() + ofVec2f(0, 20));
+                }
+                sublines[i]->draw();
+                
+            }
+            break;
+        default:
+            timeline.draw();
+            break;
     }
 }
 
 
 //--------------------------------------------------------------
 void testApp::eventControl(ofxTLBangEventArgs &e) {
-    switch(eventIncrement) {
-        case 0:
-            //audio->trigger(ANNOUNCE);
-            cabin->setSeatbelt(TRUE);
-            break;
-        case 1:
-            audio->trigger(PILOT_LANDING);
-            break;
-        case 2:
-            audio->trigger(LANDINGGEAR);
-            break;
-        default:
-            break;
+    ofLog() << e.sender->getName();
+    if(e.sender->getName() == "main") {
+        ofLog() << "Triggering event";
+        switch(eventIncrement) {
+            case 0:
+                //audio->trigger(ANNOUNCE);
+                cabin->setSeatbelt(TRUE);
+                break;
+            case 1:
+                audio->trigger(PILOT_LANDING);
+                break;
+            case 2:
+                audio->trigger(LANDINGGEAR);
+                break;
+            default:
+                break;
+        }
+        eventIncrement += 1;
+    } else
+    if(e.sender->getName() == "intro") {
+        ofLog() << "Next splash screen";
+        splash->next();
     }
-    eventIncrement += 1;
 }
