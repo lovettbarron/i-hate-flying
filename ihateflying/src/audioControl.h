@@ -16,11 +16,16 @@ enum AudioType {
     ENGINE,
     ANNOUNCE,
     PILOT,
+    PILOT_LANDING,
+    CREW,
     BABY,
     LANDINGGEAR,
     IHATEFLYING,
     COUGHING,
-    BUMPING
+    TRAY,
+    BUMPING,
+    COMMENT,
+    SMELL
 };
 
 class AudioControl {
@@ -30,18 +35,23 @@ public:
     
     void update();
     void trigger(AudioType type);
+    void resetAll();
     
     
     
 private:
+    bool bLandingGear, bPilotLanding,bIhateflying; // Once
+    
     ofSoundPlayer engine;
     ofSoundPlayer announce;
+    ofSoundPlayer pilotLanding;
     ofSoundPlayer pilot[PILOTPHRASE];
     ofSoundPlayer baby;
     ofSoundPlayer landingGear;
     ofSoundPlayer ihateflying;
     ofSoundPlayer coughing;
     ofSoundPlayer bumping;
+    ofSoundPlayer smell;
     
     
 };

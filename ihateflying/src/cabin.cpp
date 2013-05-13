@@ -30,6 +30,9 @@ Cabin::Cabin(AudioControl &_audio) {
                           );
     }
     cloudUpdate();
+    seatbelt = &seatbeltOff;
+    audio->trigger(ENGINE);
+    
 }
 
 Cabin::~Cabin() {
@@ -144,38 +147,67 @@ void Cabin::cloudUpdate() {
     windows.end();
 }
 
-
+/////
+void Cabin::randomEvent() {
+    int random = ofRandom(0,8);
+    switch(random) {
+        case 0:
+            turbulence();
+            break;
+        case 1:
+            cabinCrew();
+            break;
+        case 2:
+            garbledAnnouncement();
+            break;
+        case 3:
+            inappropriateComment();
+            break;
+        case 4:
+            landingGear();
+            break;
+        case 5:
+            fallingTraytable();
+            break;
+        case 6:
+            weirdSmell();
+            break;
+        case 7:
+            babyCrying();
+            break;
+    }
+}
 
 /////
 
 void Cabin::turbulence() {
-    
+    audio->trigger(BUMPING);
 }
 
 void Cabin::cabinCrew() {
-    
+    audio->trigger(CREW);
 }
 
 void Cabin::garbledAnnouncement() {
-    
+    audio->trigger(PILOT);
 }
 
 void Cabin::inappropriateComment() {
-    
+    audio->trigger(COMMENT);
 }
 
 void Cabin::landingGear() {
-    
+    audio->trigger(LANDINGGEAR);
 }
 
 void Cabin::fallingTraytable() {
-    
+     audio->trigger(TRAY);
 }
 
 void Cabin::weirdSmell() {
-    
+    audio->trigger(SMELL);
 }
 
 void Cabin::babyCrying() {
-    
+    audio->trigger(BABY);
 }

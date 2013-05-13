@@ -20,7 +20,6 @@ public:
         type: NULL;
         amplitude: NULL;
     };
-    ~GameEvent();
     
     AudioType type;
     float amplitude;

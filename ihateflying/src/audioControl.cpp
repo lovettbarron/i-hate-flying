@@ -15,6 +15,9 @@ AudioControl::AudioControl() {
     announce.loadSound("sound/announce.wav");
     announce.setLoop(false);
     
+    pilotLanding.loadSound("sound/pilot_landing.wav");
+    pilotLanding.setLoop(false);
+    
     for(int i=0;i<PILOTPHRASE;i++) {
         pilot[i].loadSound("sound/pilot" + ofToString(i) + ".wav");
         pilot[i].setLoop(false);
@@ -33,6 +36,10 @@ AudioControl::AudioControl() {
     
     bumping.loadSound("sound/bunmping.wav");
     bumping.setLoop(false);
+    
+    bPilotLanding = false;
+    bLandingGear = false;
+    bIhateflying = false;
 }
 
 AudioControl::~AudioControl() {
@@ -54,6 +61,13 @@ void AudioControl::trigger(AudioType type) {
         case ANNOUNCE:
             if(!announce.getIsPlaying())
                 announce.play();
+            break;
+            
+        case PILOT_LANDING:
+            if(!pilotLanding.getIsPlaying() && !bPilotLanding) {
+                pilotLanding.play();
+                bPilotLanding = true;
+            }
             break;
             
         case BABY:

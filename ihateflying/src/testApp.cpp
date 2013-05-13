@@ -10,11 +10,13 @@ GLfloat lightTwoColor[] = {0.99, 0.99, 0.99, 1.0};
 
 //--------------------------------------------------------------
 void testApp::setup(){
+    setupPanel();
+    setupTimeline();
     audio = new AudioControl();
     cabin = new Cabin(*audio);
     pulse = new PulseControl();
-
-    setupPanel();
+    
+    eventIncrement = 0;
     
 	ofSetVerticalSync(true);
 	ofEnableSmoothing();
@@ -42,7 +44,7 @@ void testApp::setup(){
     light.setAmbientColor(ofColor(255, 255, 255));
     light.setSpecularColor(ofColor(255,255,255));
     
-    ofAddListener(GameEvent::events, this, &testApp::eventControl);
+   // ofAddListener(GameEvent::events, this, &testApp::eventControl);
 }
 
 //--------------------------------------------------------------
@@ -54,11 +56,11 @@ void testApp::update(){
     if(panel.getValueB("playTimeline"))
         timeline.togglePlay();
     
-    if(panel.getValueB("showTimeline"))
-        timeline.toggleShow();
+   // if(panel.getValueB("showTimeline"))
+      //  timeline.toggleShow();
     
-    if(panel.hasValueChanged("seatbelts"))
-        cabin->setSeatbelt(panel.getValueB("seatbelts"));
+//    if(panel.hasValueChanged("seatbelts"))
+        //cabin->setSeatbelt(panel.getValueB("seatbelts"));
 }
 
 //--------------------------------------------------------------
@@ -80,6 +82,8 @@ void testApp::draw(){
     ofSetColor(255);
     cam.end();
     ofPopMatrix();
+    if(tlToggle)
+        drawTimeline();
 }
 
 //--------------------------------------------------------------
@@ -91,6 +95,8 @@ void testApp::keyPressed(int key){
         case ']':
             cam.loadCameraPosition();
             break;
+        case 't':
+            tlToggle = !tlToggle;
         default:
             break;
     }
@@ -122,15 +128,59 @@ void testApp::setupPanel() {
 
 //--------------------------------------------------------------
 void testApp::setupTimeline() {
-    
+    tlToggle = false;
     timeline.setup();
     timeline.setDurationInSeconds(60);
     timeline.setLoopType(OF_LOOP_NORMAL);
+    timeline.addBangs("event");
+    timeline.addCurves("landing");
+    timeline.addCurves("stress");
     
+    for(int i = 0; i < 3; i++){
+        ofxTimeline* t = new ofxTimeline();
+		t->setup();
+        t->setSpacebarTogglePlay(false);
+        t->setDurationInFrames(400);
+        t->addCurves("Sub Timeline " + ofToString(i));
+        t->setWidth(ofGetWidth() * .6);
+        t->setLoopType(OF_LOOP_NORMAL);
+        sublines.push_back(t);
+    }
+    
+    ofAddListener(timeline.events().bangFired, this, &testApp::eventControl);
   //  timeline.addKeyframes("MyCircleRadius", ofRange(0, 200));
 }
 
-//--------------------------------------------------------------
-void testApp::eventControl(GameEvent &e) {
+void testApp::drawTimeline() {
+
+    timeline.draw();
     
+    sublines[0]->setOffset(timeline.getBottomLeft());
+    
+    for(int i = 0; i < sublines.size(); i++){
+        if(i != 0){
+            sublines[i]->setOffset(sublines[i-1]->getBottomLeft() + ofVec2f(0, 20));
+        }
+        sublines[i]->draw();
+    }
+}
+
+
+//--------------------------------------------------------------
+void testApp::eventControl(ofxTLBangEventArgs &e) {
+    switch(eventIncrement) {
+        case 0:
+            //audio->trigger(ANNOUNCE);
+            cabin->setSeatbelt(TRUE);
+            break;
+        case 1:
+            audio->trigger(PILOT_LANDING);
+            break;
+        case 2:
+            audio->trigger(LANDINGGEAR);
+            break;
+        default:
+            break;
+    }
+    eventIncrement += 1;
 }

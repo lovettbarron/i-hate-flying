@@ -74,6 +74,7 @@ public:
     void setSeatbelt(bool state);
     
     // Emotion events
+    void randomEvent();
     void turbulence();
     void cabinCrew();
     void garbledAnnouncement();
