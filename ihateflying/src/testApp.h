@@ -27,7 +27,7 @@ class testApp : public ofBaseApp{
 		void keyPressed (int key);
     
     // Bools
-    bool tlToggle;
+    bool tlToggle, pDebug;
     int timelineSelect;
     
     // Model

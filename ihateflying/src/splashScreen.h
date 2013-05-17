@@ -20,6 +20,7 @@ public:
     void draw();
     void next();
     void startGame();
+    void endGame();
     
     ofImage laGameSpace;
     ofImage relayStudio;
@@ -28,7 +29,7 @@ public:
     ofImage * current;
     
     int incr;
-    bool started;
+    bool started, finished;
     
 };
 #endif /* defined(__ihateflying__splashScreen__) */

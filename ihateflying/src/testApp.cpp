@@ -10,6 +10,9 @@ GLfloat lightTwoColor[] = {0.99, 0.99, 0.99, 1.0};
 
 //--------------------------------------------------------------
 void testApp::setup(){
+    
+    ofSetLogLevel(OF_LOG_NOTICE);
+    
     setupPanel();
     setupTimeline();
     audio = new AudioControl();
@@ -18,6 +21,7 @@ void testApp::setup(){
     splash = new SplashScreen();
     
     eventIncrement = 0;
+    pDebug = false;
     
 	ofSetVerticalSync(true);
 	ofEnableSmoothing();
@@ -86,6 +90,8 @@ void testApp::draw(){
     splash->draw();
     if(tlToggle)
         drawTimeline();
+    if(pDebug)
+        pulse->drawDebug();
 }
 
 //--------------------------------------------------------------
@@ -97,6 +103,8 @@ void testApp::keyPressed(int key){
 //        case ']':
 //            cam.loadCameraPosition();
 //            break;
+        case 'd':
+            pDebug = !pDebug;
         case 't':
             tlToggle = !tlToggle;
             break;
@@ -140,6 +148,7 @@ void testApp::setupPanel() {
 //--------------------------------------------------------------
 void testApp::setupTimeline() {
     tlToggle = false;
+    
     timeline.setup();
     timeline.setName("main");
     timeline.setDurationInSeconds(60);
@@ -205,9 +214,8 @@ void testApp::drawTimeline() {
 
 //--------------------------------------------------------------
 void testApp::eventControl(ofxTLBangEventArgs &e) {
-    ofLog() << e.sender->getName();
     if(e.sender->getName() == "main") {
-        ofLog() << "Triggering event";
+        ofLog() << "Triggering game event";
         switch(eventIncrement) {
             case 0:
                 //audio->trigger(ANNOUNCE);
@@ -223,9 +231,11 @@ void testApp::eventControl(ofxTLBangEventArgs &e) {
                 break;
         }
         eventIncrement += 1;
-    } else
-    if(e.sender->getName() == "intro") {
+    }
+    else if(e.sender->getName() == "intro") {
         ofLog() << "Next splash screen";
         splash->next();
+    } else {
+        ofLog() << e.sender->getName();
     }
 }

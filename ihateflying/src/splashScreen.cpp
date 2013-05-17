@@ -25,8 +25,24 @@ SplashScreen::~SplashScreen() {
 void SplashScreen::draw() {
     if(!started) {
         ofPushStyle();
-        glDepthFunc(GL_ALWAYS); // draw on top of everything
+        glDepthFunc(GL_ALWAYS);
         current->draw(0,0,ofGetWidth(),ofGetHeight());
+        
+        ofPopStyle();
+    }
+    
+    if(finished) {
+        ofPushStyle();
+        glDepthFunc(GL_ALWAYS);
+        ofVec2f p = ofVec2f(ofGetWidth() * .1, ofGetHeight() *.1);
+        ofDrawBitmapString("You've Landed, this time.",
+                           p);
+        ofDrawBitmapString("Your Empathy Score is",
+                           p + (0,p.y));
+        ofDrawBitmapString("Default",
+                           p + (0,p.y*2));
+        ofDrawBitmapString("To Play Again, get your heartrate to 80bpm",
+                           p + (0,p.y*4));
         
         ofPopStyle();
     }
@@ -34,6 +50,7 @@ void SplashScreen::draw() {
 
 void SplashScreen::startGame() {
     started = true;
+    finished = false;
 }
 
 void SplashScreen::next() {
@@ -51,4 +68,8 @@ void SplashScreen::next() {
             break;
     }
     incr++;
+}
+
+void SplashScreen::endGame() {
+    finished = true; started = false;
 }

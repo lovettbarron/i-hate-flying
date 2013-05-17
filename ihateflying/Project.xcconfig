@@ -5,16 +5,15 @@ OF_PATH = ../../openFrameworks
 //THIS HAS ALL THE HEADER AND LIBS FOR OF CORE
 #include "../../openFrameworks/libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig"
 
-ADDONS_PATH = "$(OF_PATH)/addons"
+ADDONS_PATH = $(OF_PATH)/addons
 // For my own file structure. Src is above of, addons is within
 SRC_PATH = $(OF_PATH)/..
-OFX_CV_HEADERS = "$(ADDONS_PATH)/ofxOpenCv/libs/opencv/include/" "$(ADDONS_PATH)/ofxCv/libs/ofxCv/include/" "$(ADDONS-PATH)/ofxDirList"
 
 // ofxCV
 OFXCV_HEADERS = "$(ADDONS_PATH)/ofxOpenCv/libs/opencv/include/" "$(ADDONS_PATH)/ofxCv/libs/ofxCv/include/"
 OFXCV_LIBS = "$(ADDONS_PATH)/ofxOpenCv/libs/opencv/lib/osx/opencv.a"
 // all addons
-OF_ADDON_HEADERS = $(OFX_CV_HEADERS)
+OF_ADDON_HEADERS = $(OFXCV_HEADERS)
 OF_ADDON_LIBS = $(OFXCV_LIBS)
 
 OTHER_LDFLAGS = $(OF_CORE_LIBS) $(OF_ADDON_LIBS)

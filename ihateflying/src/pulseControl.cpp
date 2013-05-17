@@ -9,9 +9,24 @@
 #include "pulseControl.h"
 
 
+using namespace cv;
+using namespace ofxCv;
+
 PulseControl:: PulseControl() {
-    serial.listDevices();
-	serial.setup("/dev/tty.usbmodem411",9600);
+    if(!bCam) {
+        serial.listDevices();
+        serial.setup("/dev/tty.usbmodem411",9600);
+    } else {
+        classifier.load(ofToDataPath("haarcascade_frontalface_alt2.xml"));
+        
+        scaleFactor = .25;
+        cam.initGrabber(640, 480);
+        
+        // shouldn't need to allocate, resize should do this for us
+        graySmall.allocate(cam.getWidth() * scaleFactor, cam.getHeight() * scaleFactor, OF_IMAGE_GRAYSCALE);
+
+    
+    }
     ofAddListener(PulseEvent::events, this, &PulseControl::sensorDelegate);
 }
 
@@ -19,23 +34,57 @@ PulseControl::~PulseControl() {
     
 }
 
+void PulseControl::drawDebug() {
+    ofPushMatrix();
+    ofTranslate(ofGetWidth()-cam.getWidth(), ofGetHeight()-cam.getHeight());
+    cam.draw(0, 0);
+
+    ofNoFill();
+
+    ofScale(1 / scaleFactor, 1 / scaleFactor);
+    for(int i = 0; i < objects.size(); i++) {
+        ofRect(toOf(objects[i]));
+    }
+
+    ofDrawBitmapString(ofToString(objects.size()), 10, 20);
+}
+
+
 void PulseControl::update() {
-    if(serial.available() > 0) {
-        buffer += serial.readByte();
-        //ofLog() << buffer;
-        
-        
-        if(buffer.at(buffer.length() - 1) == '\r') {
-            ofLog() << buffer;
-            //        static PulseEvent event;
-            //        if(buffer
-            //        event.type    = 2;
-            //        event.payload = 0;
-            //        ofNotifyEvent(PulseEvent::events, event);
-            buffer = "";
+    if(!bCam){
+        if(serial.available()) {
+            buffer += serial.readByte();
+            //ofLog() << buffer;
+            
+            
+            if(buffer.at(buffer.length() - 1) == '\r') {
+                ofLog() << buffer;
+                //        static PulseEvent event;
+                //        if(buffer
+                //        event.type    = 2;
+                //        event.payload = 0;
+                //        ofNotifyEvent(PulseEvent::events, event);
+                buffer = "";
+            }
+        }
+    } else {
+        cam.update();
+        if(cam.isFrameNew()) {
+            convertColor(cam, gray, CV_RGB2GRAY);
+            resize(gray, graySmall);
+            Mat graySmallMat = toCv(graySmall);
+            if(ofGetMousePressed()) {
+                equalizeHist(graySmallMat, graySmallMat);
+            }
+            graySmall.update();
+            
+            classifier.detectMultiScale(graySmallMat, objects, 1.06, 1,
+                                        //CascadeClassifier::DO_CANNY_PRUNING |
+                                        //CascadeClassifier::FIND_BIGGEST_OBJECT |
+                                        //CascadeClassifier::DO_ROUGH_SEARCH |
+                                        0);
         }
     }
-    
 }
 
 int PulseControl::getCurrentBPM() {
@@ -63,22 +112,7 @@ void PulseControl::sensorDelegate(PulseEvent &e) {
     ofLog() << "type: " << ofToString(e.type) << " payload: " << ofToString(e.payload);
 
     }
-//    String inData = port.readStringUntil('\n');
-//    inData = trim(inData);                 // cut off white space (carriage return)
-//    
-//    if (inData.charAt(0) == 'S'){          // leading 'S' for sensor data
-//        inData = inData.substring(1);        // cut off the leading 'S'
-//        Sensor = int(inData);                // convert the string to usable int
-//    }
-//    if (inData.charAt(0) == 'B'){          // leading 'B' for BPM data
-//        inData = inData.substring(1);        // cut off the leading 'B'
-//        BPM = int(inData);                   // convert the string to usable int
-//        beat = true;                         // set beat flag to advance heart rate graph
-//        heart = 20;                          // begin heart image 'swell' timer
-//    }
-//    if (inData.charAt(0) == 'Q'){            // leading 'Q' means IBI data
-//        inData = inData.substring(1);        // cut off the leading 'Q'
-//        IBI = int(inData);                   // convert the string to usable int
-//    }
-//}
 
+void PulseControl::calcFrame() {
+    
+}

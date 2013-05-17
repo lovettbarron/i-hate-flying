@@ -13,6 +13,7 @@
 #include "ofEvents.h"
 #include "ofSerial.h"
 #include "pulseEvent.h"
+#include "ofxCv.h"
 
 class PulseControl {
     
@@ -21,6 +22,7 @@ public:
     ~PulseControl();
     
     void update();
+    void calcFrame();
     
     int getCurrentBPM();
     int getAverageBPM();
@@ -32,6 +34,8 @@ public:
     void drawBPM(int x, int y);
     void drawIBI(int x, int y);
     
+    void drawDebug();
+    
     void sensorDelegate(PulseEvent &e);
     
 private:
@@ -40,11 +44,19 @@ private:
     vector<int> ibi;
     int currentBPM;
     int currentIBI;
+    const bool bCam=true;
     
     ofSerial serial;
     string buffer;
     bool stringComplete = false;
     
+    //Camera
+    
+    ofVideoGrabber cam;
+	ofImage gray, graySmall;
+    float scaleFactor;
+	cv::CascadeClassifier classifier;
+	vector<cv::Rect> objects;
 };
 
 
