@@ -24,18 +24,19 @@ SplashScreen::~SplashScreen() {
 
 void SplashScreen::draw() {
     if(!started) {
-        ofPushStyle();
+        ofBackground(255);
         glDepthFunc(GL_ALWAYS);
-        current->draw(0,0,ofGetWidth(),ofGetHeight());
-        
-        ofPopStyle();
+        // Center the image
+        ofPushMatrix();
+        ofTranslate((ofGetWidth()-current->getWidth())/2,(ofGetHeight()-current->getHeight())/2);
+        current->draw(0,0);
+        ofPopMatrix();
     }
-    
-    if(finished) {
-        ofPushStyle();
+    else if(finished) {
+        ofPushMatrix();
         glDepthFunc(GL_ALWAYS);
         ofVec2f p = ofVec2f(ofGetWidth() * .1, ofGetHeight() *.1);
-        ofDrawBitmapString("You've Landed, this time.",
+        ofDrawBitmapString("You've Landed this time.",
                            p);
         ofDrawBitmapString("Your Empathy Score is",
                            p + (0,p.y));
@@ -44,13 +45,16 @@ void SplashScreen::draw() {
         ofDrawBitmapString("To Play Again, get your heartrate to 80bpm",
                            p + (0,p.y*4));
         
-        ofPopStyle();
+        ofPopMatrix();
     }
 }
 
 void SplashScreen::startGame() {
-    started = true;
-    finished = false;
+    started = true; finished = false;
+}
+
+void SplashScreen::endGame() {
+    finished = true; started = false;
 }
 
 void SplashScreen::next() {
@@ -70,6 +74,3 @@ void SplashScreen::next() {
     incr++;
 }
 
-void SplashScreen::endGame() {
-    finished = true; started = false;
-}

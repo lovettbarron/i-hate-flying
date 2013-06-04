@@ -103,8 +103,15 @@ void testApp::keyPressed(int key){
 //        case ']':
 //            cam.loadCameraPosition();
 //            break;
+        case 's':
+            splash->startGame();
+            break;
+        case 'f':
+            splash->endGame();
+            break;
         case 'd':
             pDebug = !pDebug;
+            break;
         case 't':
             tlToggle = !tlToggle;
             break;
@@ -179,9 +186,10 @@ void testApp::setupTimeline() {
     
     
     ofAddListener(timeline.events().bangFired, this, &testApp::eventControl);
+    ofAddListener(splashTimeline.events().bangFired, this, &testApp::eventControl);
   //  timeline.addKeyframes("MyCircleRadius", ofRange(0, 200));
     
-    
+    timeline.stop();
     splashTimeline.play();
     
 }
@@ -214,6 +222,7 @@ void testApp::drawTimeline() {
 
 //--------------------------------------------------------------
 void testApp::eventControl(ofxTLBangEventArgs &e) {
+    ofLog() << e.sender->getName();
     if(e.sender->getName() == "main") {
         ofLog() << "Triggering game event";
         switch(eventIncrement) {
